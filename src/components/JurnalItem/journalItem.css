@@ -1,9 +1,4 @@
-.journal-item {
-  border-radius: 9px;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: white;
-  padding: 20px;
-}
+
 .journal-item__body {
   display: flex;
   gap: 10px;
