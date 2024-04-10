@@ -1,8 +1,18 @@
-import React from "react";
+import { React, useState } from "react";
 import "./button.css";
 
 const Button = () => {
-  return <button className="button accent">Save</button>;
+  const [text, setText] = useState("Save");
+
+  const clicked = () => {
+    setText("Close");
+  };
+
+  return (
+    <button onClick={clicked} className="button accent">
+      {text}
+    </button>
+  );
 };
 
 export default Button;
