@@ -11,11 +11,13 @@ import JournalForm from "./components/JournalForm/JournalForm";
 
 const INITIAL_DATA = [
   {
+    id: 0,
     title: "Задача первая",
     text: "Текст первой задачи расположен здесь",
     date: new Date(),
   },
   {
+    id: 1,
     title: "Задача вторая",
     text: "Текст второй задачи расположен здесь",
     date: new Date(),
@@ -24,6 +26,7 @@ const INITIAL_DATA = [
 
 function App() {
   const [items, setItems] = useState(INITIAL_DATA);
+
   const addItem = (item) => {
     setItems((oldItems) => [
       ...oldItems,
@@ -31,8 +34,16 @@ function App() {
         text: item.text,
         title: item.title,
         date: new Date(item.date),
+        id: Math.max(...oldItems.map((i) => i.id)) + 1,
       },
     ]);
+  };
+  const sortItems = (a, b) => {
+    if (a.date < b.date) {
+      return 1;
+    } else {
+      return -1;
+    }
   };
 
   return (
@@ -41,13 +52,14 @@ function App() {
         <Header />
         <JournalAddButton />
         <JournalList>
-          {items.map((el) => (
-            <CardButton>
+          {items.sort(sortItems).map((el) => (
+            <CardButton key={el.id}>
               <JournalItem title={el.title} text={el.text} date={el.date} />
             </CardButton>
           ))}
         </JournalList>
       </LeftPanel>
+
       <Body>
         <JournalForm onSubmit={addItem} />
       </Body>
